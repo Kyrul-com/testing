@@ -1,122 +1,112 @@
-## 🎯 Objectives:
-| **Objective**                       | **Description**                                                                 |
-|-------------------------------------|---------------------------------------------------------------------------------|
-| 📁 Local File Systems               | Describe the details of implementing local file systems and directory structures.|
-| 🌐 Remote File Systems              | Discuss the implementation of remote file systems.                              |
-| 📦 Block Allocation & Free Space    | Explore block allocation, free-block algorithms, and trade-offs.                |
-| 🔄 File Recovery                    | Understand recovery mechanisms for data and directory inconsistencies.          |
+Here’s a simple README file for your BlueJ To-Do List App
 
 ---
 
-## 📚 11.1 File-System Structure
-### What is a File System?
-| **Feature**                     | **Description**                                                                 |
-|---------------------------------|---------------------------------------------------------------------------------|
-| 📂 Logical Storage Unit         | A file is a named collection of related information stored on secondary storage.|
-| ⚙️ Storage Mapping              | Maps logical file storage to physical locations on disk.                        |
-| 📁 Layered Organization         | The file system is divided into layers, each handling specific functionalities. |
+# To-Do List Application
 
-### 📄 Key Components of a File System:
-| **Component**                 | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 📂 File Control Block (FCB)   | A storage structure that contains information about a file (e.g., size, location).|
-| 🔧 Device Driver               | Controls the physical storage device.                                          |
-| 📦 Disk Management             | Handles block allocation and ensures efficient use of disk space.             |
-
-### 🔄 Layered File-System Structure:
-| **Layer**                     | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 🔧 I/O Control                | Handles device drivers and interrupt handlers for transferring data between memory and disk. |
-| 📂 Basic File System          | Issues commands to read/write physical blocks of data on the disk.              |
-| 🗂️ File-Organization Module   | Maps logical file addresses to physical disk locations and manages free space.  |
-| 📜 Logical File System        | Maintains metadata, manages directory structures, and supports file access.     |
+## Description
+This is a simple console-based To-Do List application built in Java, designed to run in the BlueJ IDE. It allows users to manage tasks efficiently by providing features to add, complete, and display tasks in a to-do list.
 
 ---
 
-## 🔑 11.4 Allocation Methods
-### Overview of Disk Space Allocation:
-| **Feature**                   | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 📂 Direct Access              | A disk is a direct-access device, enabling random access to files.              |
-| 📏 Allocation Methods          | Determine how disk blocks are assigned to files for efficient storage.         |
-| 🔄 Flexibility                 | Allocation methods must balance efficient disk use with quick file access.      |
-
-### 🚦 Types of Allocation Methods:
-#### 1. Contiguous Allocation:
-| **Feature**                   | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 📏 Contiguous Blocks          | Each file occupies a set of sequential blocks on the disk.                     |
-| ⚡ Performance                | Offers the best performance for sequential and random access.                  |
-| ⚠️ Issues                     | Difficult to extend files, causes external fragmentation, and requires compaction.|
-
-#### 2. Linked Allocation:
-| **Feature**                   | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 🔗 Block Linking              | Each block stores a pointer to the next block, forming a linked list.           |
-| ✅ Advantages                 | Eliminates external fragmentation and simplifies file growth.                   |
-| ⚠️ Issues                     | Poor random access performance and potential reliability issues due to pointer corruption.|
-
-#### 3. Indexed Allocation:
-| **Feature**                   | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 📜 Index Block                | Uses an index block to store pointers to the file's data blocks.               |
-| ⚡ Random Access              | Allows dynamic access without external fragmentation.                          |
-| ⚠️ Overhead                  | Requires additional space for index blocks.                                     |
+## Features
+- Add Tasks Users can add new tasks to the to-do list.
+- Complete Tasks Mark tasks as completed by specifying the task number.
+- View Tasks Display all tasks in the to-do list with their completion status.
+- User-Friendly Menu Simple and intuitive menu for interaction.
 
 ---
 
-## 📓 Examples of Allocation Scenarios:
-| **Scenario**                  | **Example**                                                                     |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 📦 Extent-Based Systems       | A file starts with a contiguous block, and new extents are added as needed.    |
-| 🔗 Linked Allocation           | Example: A file stored in blocks 9, 16, 1, 10, and 25, with each block pointing to the next. |
-| 📜 Indexed Allocation          | Example: A file uses an index block with entries pointing to data blocks for efficient access.|
+## How to Run
+1. Setup
+   - Open the BlueJ IDE.
+   - Create a new project (e.g., `ToDoListApp`).
+   - Add the following classes to the project
+     - `Task`
+     - `ToDoList`
+     - `Main`
+
+2. Add Code
+   - Copy the respective code from the provided files into each class.
+   - Compile all classes to ensure there are no errors.
+
+3. Run the Application
+   - Right-click on the `Main` class.
+   - Select void main(String[] args) to run the app.
+   - Use the menu options in the console to interact with the application.
 
 ---
 
-## 🔓 11.5 Free-Space Management
-### Key Techniques for Managing Free Space:
-#### 1. Bit Map:
-| **Feature**                   | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 🔢 Representation             | Uses a bit vector where each bit represents the status of a block (free or used).|
-| ⚡ Efficiency                 | Quick to identify free blocks but requires extra memory for the bit map.        |
+## Example Usage
+Here’s an example interaction with the app
 
-#### 2. Free List:
-| **Feature**                   | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 🔗 Linked List                | Stores addresses of free blocks in a linked list.                              |
-| ⚠️ Issues                     | Cannot allocate contiguous blocks easily.                                       |
+```
+=== To-Do List App ===
+1. Add a task
+2. Complete a task
+3. Display tasks
+4. Exit
+Enter your choice 1
+Enter task description Finish homework
+Task added!
 
-#### 3. Grouping:
-| **Feature**                   | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 📦 Modified Linked List       | Stores addresses of multiple free blocks in a single entry.                    |
-| ✅ Efficiency                 | Reduces traversal time by grouping multiple block addresses.                   |
+=== To-Do List App ===
+1. Add a task
+2. Complete a task
+3. Display tasks
+4. Exit
+Enter your choice 3
 
-#### 4. Counting:
-| **Feature**                   | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 📊 Extent Tracking            | Tracks contiguous free blocks using start address and count.                   |
-| ✅ Advantages                 | Useful for systems with frequent contiguous allocation and deallocation.       |
+Your To-Do List
+1. [ ] Finish homework
+
+=== To-Do List App ===
+1. Add a task
+2. Complete a task
+3. Display tasks
+4. Exit
+Enter your choice 2
+Enter task number to mark as completed 1
+
+=== To-Do List App ===
+1. Add a task
+2. Complete a task
+3. Display tasks
+4. Exit
+Enter your choice 3
+
+Your To-Do List
+1. [X] Finish homework
+```
 
 ---
 
-## 🔄 11.7 Recovery
-### Strategies for File-System Recovery:
-| **Strategy**                  | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 🔍 Consistency Checking        | Verifies and repairs inconsistencies between directory structure and disk data.|
-| 💾 Backups                     | Restores files and directories from backup copies.                             |
+## Requirements
+- BlueJ IDE
+- Java JDK (version 8 or higher)
 
 ---
 
-## 📝 Summary:
-| **Key Point**                 | **Description**                                                                 |
-|-------------------------------|---------------------------------------------------------------------------------|
-| 📂 File-System Implementation | Describes how file systems map logical storage to physical disk locations.     |
-| 📦 Allocation Methods         | Covers contiguous, linked, and indexed allocation strategies.                  |
-| 🧮 Free-Space Management      | Explains bit map, free list, grouping, and counting techniques.                |
-| 🔒 Recovery Mechanisms        | Highlights consistency checking and backup recovery processes.                 |
+## Project Structure
+- Task.java Represents a single task with a description and completion status.
+- ToDoList.java Manages a list of tasks.
+- Main.java Provides a user interface for interacting with the to-do list.
 
-✨ Use this guide to deepen your understanding of file-system structures, allocation methods, and recovery strategies! 🎉
+---
+
+## Future Enhancements
+Here are some ideas for improving the app
+- Add a graphical user interface (GUI).
+- Save tasks to a file so they persist between sessions.
+- Allow users to delete tasks.
+- Add priorities to tasks.
+
+---
+
+## Author
+Created by [Your Name].  
+For educational purposes and to practice Java in the BlueJ IDE.
+
+---
+
+Feel free to customize the README further based on your specific needs or add more sections!
